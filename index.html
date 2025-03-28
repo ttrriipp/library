@@ -7,6 +7,42 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <header>
+      <h1 class="title">Library</h1>
+      <p>Hello there user!</p>
+      <button class="new-book">New Book</button>
+    </header>
+
+    <dialog>
+      <form method="dialog">
+        <h2>Add a new book</h2>
+        <div>
+          <label for="title">Title:</label>
+          <input type="text" id="title" />
+        </div>
+        <div>
+          <label for="author">Author:</label>
+          <input type="text" id="author" />
+        </div>
+        <div>
+          <label for="pages">Pages:</label>
+          <input type="number" id="pages" />
+        </div>
+        <div>
+          <label for="read">Have read:</label>
+          <input type="checkbox" id="read" />
+        </div>
+        <div>
+          <button>Cancel</button>
+          <button>Add Book</button>
+        </div>
+      </form>
+    </dialog>
+
+    <main>
+      <h2>Books</h2>
+    </main>
+
     <script src="script.js"></script>
   </body>
 </html>
