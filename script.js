@@ -22,8 +22,19 @@ function displayBooks(library) {
   library.forEach((book) => {
     const newCard = document.createElement("div");
     newCard.className = "book-card";
-
     newCard.innerHTML = `<h3>${book.title}</h3> <p>by ${book.author}</p> <p>Pages: ${book.pages}</p> <p>Status: ${book.read}</p>`;
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "delete-button";
+    deleteBtn.textContent = "remove";
+    newCard.append(deleteBtn);
+    newCard.setAttribute("data-id", book.id);
+
+    deleteBtn.addEventListener("click", () => {
+      const bookToBeRemoved = deleteBtn.parentNode;
+      bookToBeRemoved.remove();
+      removeBookFromLibrary(bookToBeRemoved.dataset.id);
+    });
 
     displaySection.append(newCard);
   });
@@ -49,3 +60,11 @@ addBookButton.addEventListener("click", (event) => {
   addBookToLibrary(title, author, pages, read);
   newBookDialog.close();
 });
+
+function removeBookFromLibrary(id) {
+  for (let i = 0; i < myLibrary.length; i++) {
+    if (myLibrary[i].id == id) {
+      myLibrary.splice(i, 1);
+    }
+  }
+}
