@@ -53,6 +53,7 @@ main .book-card {
     justify-content: center;
     gap: 8px;
     text-align: center;
+    align-items: center;
     width: 50%;
     border-radius: 10px;
     border: 2px solid orange;
@@ -84,5 +85,14 @@ dialog form {
     position: absolute;
     top: 5px;
     right: 5px;
+    cursor: pointer;
+}
+
+.read-status-button {
+    background-color: blue;
+    color: white;
+    width: 80px;
+    height: 20px;
+    border-radius: 5px;
     cursor: pointer;
 }

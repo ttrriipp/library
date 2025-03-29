@@ -8,6 +8,12 @@ function Book(title, author, pages, read, id) {
   this.id = id;
 }
 
+Book.prototype.toggleRead = function () {
+  if (this.read == "finished") this.read = "not read yet";
+  else this.read = "finished";
+  displayBooks(myLibrary);
+};
+
 function addBookToLibrary(title, author, pages, read) {
   const id = crypto.randomUUID();
   const book = new Book(title, author, pages, read, id);
@@ -34,6 +40,17 @@ function displayBooks(library) {
       const bookToBeRemoved = deleteBtn.parentNode;
       bookToBeRemoved.remove();
       removeBookFromLibrary(bookToBeRemoved.dataset.id);
+    });
+
+    const readStatusButton = document.createElement("button");
+    readStatusButton.className = "read-status-button";
+    readStatusButton.textContent = "toggle read";
+    newCard.append(readStatusButton);
+
+    readStatusButton.addEventListener("click", () => {
+      const bookId = readStatusButton.parentNode.dataset.id;
+      const book = myLibrary.find((obj) => obj.id == bookId);
+      book.toggleRead();
     });
 
     displaySection.append(newCard);
