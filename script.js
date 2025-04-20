@@ -5,14 +5,13 @@ class Book {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read = read ? "finished" : "not read yet";
+    this.read = read ? 'finished' : 'not read yet';
     this.id = id;
   }
 
   //toggle read method
   toggleRead() {
-    if (this.read == "finished") this.read = "not read yet";
-    else this.read = "finished";
+    this.read = this.read == 'finished' ? 'not read yet' : 'finished';
     displayBooks(myLibrary);
   }
 
@@ -33,32 +32,32 @@ class Book {
 }
 
 function displayBooks(library) {
-  const displaySection = document.querySelector("main");
-  displaySection.innerHTML = "";
+  const displaySection = document.querySelector('main');
+  displaySection.innerHTML = '';
 
   library.forEach((book) => {
-    const newCard = document.createElement("div");
-    newCard.className = "book-card";
+    const newCard = document.createElement('div');
+    newCard.className = 'book-card';
     newCard.innerHTML = `<h3>${book.title}</h3> <p>by ${book.author}</p> <p>Pages: ${book.pages}</p> <p>Status: ${book.read}</p>`;
 
-    const deleteBtn = document.createElement("button");
-    deleteBtn.className = "delete-button";
-    deleteBtn.textContent = "remove";
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'delete-button';
+    deleteBtn.textContent = 'remove';
     newCard.append(deleteBtn);
     newCard.dataset.id = book.id;
 
-    deleteBtn.addEventListener("click", () => {
+    deleteBtn.addEventListener('click', () => {
       const bookToBeRemoved = deleteBtn.parentNode;
       bookToBeRemoved.remove();
       Book.removeFromLibrary(bookToBeRemoved.dataset.id);
     });
 
-    const readStatusButton = document.createElement("button");
-    readStatusButton.className = "read-status-button";
-    readStatusButton.textContent = "toggle read";
+    const readStatusButton = document.createElement('button');
+    readStatusButton.className = 'read-status-button';
+    readStatusButton.textContent = 'toggle read';
     newCard.append(readStatusButton);
 
-    readStatusButton.addEventListener("click", () => {
+    readStatusButton.addEventListener('click', () => {
       const bookId = readStatusButton.parentNode.dataset.id;
       const book = myLibrary.find((obj) => obj.id == bookId);
       book.toggleRead();
@@ -68,25 +67,27 @@ function displayBooks(library) {
   });
 }
 
-const newBookDialog = document.querySelector("dialog");
+const newBookDialog = document.querySelector('dialog');
 
 // Open new book dialog button
-const newBookButton = document.querySelector(".new-book");
-newBookButton.addEventListener("click", () => {
+const newBookButton = document.querySelector('.new-book');
+newBookButton.addEventListener('click', () => {
   newBookDialog.showModal();
 });
 
 // Add book button
 function addBook(event) {
-  event.preventDefault();
+  const form = document.querySelector('form');
   const title = document.querySelector('input[name="title"]').value;
   const author = document.querySelector('input[name="author"]').value;
   const pages = document.querySelector('input[name="pages"]').value;
   const read = document.querySelector('input[type="checkbox"]').checked;
 
-  Book.addToLibrary(title, author, pages, read);
-  newBookDialog.close();
+  if (form.checkValidity()) {
+    Book.addToLibrary(title, author, pages, read);
+    newBookDialog.close();
+  }
 }
 
-const addBookButton = document.querySelector(".add-book");
-addBookButton.addEventListener("click", addBook);
+const addBookButton = document.querySelector('.add-book');
+addBookButton.addEventListener('click', addBook);
